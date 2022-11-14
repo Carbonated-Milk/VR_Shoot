@@ -32,33 +32,33 @@ public class Bomb : MonoBehaviour
         }*/
     }
 
-    void Explode ()
+    void Explode()
     {
         //StartCoroutine(cameraShake.Shake(.15f, .4f));
 
         FindObjectOfType<AudioManager>().Play("ExplosionEffect");
-        
+
         Instantiate(explosionEffect, transform.position, transform.rotation);
 
-        Collider[] colliders =Physics.OverlapSphere(transform.position, radius);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
 
         foreach (Collider nearbyObject in colliders)
         {
-            Rigidbody rb =nearbyObject.GetComponent<Rigidbody>();
+            Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
                 rb.AddExplosionForce(force, transform.position, radius);
             }
         }
-           //add force
-           //damage
-        
+        //add force
+        //damage
+
         Destroy(gameObject);
 
-        
+
     }
 
-    void OnCollisionEnter (Collision beans)
+    void OnCollisionEnter(Collision beans)
     {
         Explode();
     }
